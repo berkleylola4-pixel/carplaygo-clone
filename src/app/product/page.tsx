@@ -156,9 +156,9 @@ export default function ProductPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
               {[
-                { icon: Shield, text: "Garantie 2 ans" },
-                { icon: Truck, text: "Livraison gratuite" },
-                { icon: RotateCcw, text: "30 jours satisfait" },
+                { icon: Shield, text: config.guaranteeText },
+                { icon: Truck, text: config.shippingText },
+                { icon: RotateCcw, text: config.refundText },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-2 text-sm text-foreground-muted bg-background-alt px-4 py-3 rounded-xl">
                   <Icon className="w-4 h-4 text-accent shrink-0" />

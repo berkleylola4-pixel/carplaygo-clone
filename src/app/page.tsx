@@ -42,8 +42,7 @@ export default function Home() {
                 custom={1}
                 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] text-foreground"
               >
-                CarPlay et Android Auto{" "}
-                <span className="text-accent">Sans Fil</span>
+                {config.heroHeadline}
               </motion.h1>
 
               <motion.p
@@ -53,7 +52,7 @@ export default function Home() {
                 custom={2}
                 className="text-lg sm:text-xl text-foreground-muted leading-relaxed max-w-xl"
               >
-                Transformez votre autoradio d'origine en systeme connecte en 30 secondes. Compatible avec 98% des vehicules equipes d'ecran.
+                {config.heroSubline}
               </motion.p>
 
               <motion.div
@@ -67,7 +66,7 @@ export default function Home() {
                   href="/product"
                   className="inline-flex items-center gap-2 bg-foreground text-white px-8 py-4 rounded-full font-semibold hover:bg-foreground/90 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-foreground/20"
                 >
-                  Decouvrir
+                  {config.ctaText}
                   <ChevronRight className="w-4 h-4" />
                 </Link>
                 <Link
@@ -87,11 +86,11 @@ export default function Home() {
               >
                 <div className="flex items-center gap-2 text-sm text-foreground-muted">
                   <Truck className="w-4 h-4 text-accent" />
-                  <span>Livraison gratuite</span>
+                  <span>{config.shippingText}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-foreground-muted">
                   <RotateCcw className="w-4 h-4 text-accent" />
-                  <span>30 jours satisfait ou rembourse</span>
+                  <span>{config.refundText}</span>
                 </div>
               </motion.div>
             </div>
@@ -140,7 +139,7 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-1.5">
               <Shield className="w-5 h-5 text-accent" />
-              <span className="text-sm font-medium">Garantie 2 ans incluse</span>
+              <span className="text-sm font-medium">{config.guaranteeText}</span>
             </div>
           </div>
         </div>
