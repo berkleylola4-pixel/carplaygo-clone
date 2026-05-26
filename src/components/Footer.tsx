@@ -1,10 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { useSiteConfig } from "@/lib/config";
 import { Globe, MessageCircle, Share2, Mail } from "lucide-react";
 
 const footerLinks = {
   produit: [
-    { label: "CarplayGO Sans Fil", href: "/product" },
-    { label: "Caractéristiques", href: "/product" },
+    { label: "Produit", href: "/product" },
+    { label: "Caracteristiques", href: "/product" },
     { label: "Avis clients", href: "/product" },
   ],
   entreprise: [
@@ -20,6 +23,8 @@ const footerLinks = {
 };
 
 export default function Footer() {
+  const config = useSiteConfig();
+
   return (
     <footer className="bg-foreground text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
@@ -29,7 +34,7 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
                 <span className="text-white font-bold text-sm">C</span>
               </div>
-              <span className="font-bold text-xl tracking-tight">CarplayGO</span>
+              <span className="font-bold text-xl tracking-tight">{config.brandName}</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               L'adaptateur sans fil premium pour Apple CarPlay et Android Auto. Transformez votre conduite.
@@ -72,7 +77,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/10 mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-gray-500 text-sm">© {new Date().getFullYear()} CarplayGO. Tous droits reserves.</p>
+          <p className="text-gray-500 text-sm">© {new Date().getFullYear()} {config.brandName}. Tous droits reserves.</p>
           <div className="flex items-center gap-2 text-gray-500 text-sm">
             <Mail className="w-4 h-4" />
             <span>contact@carplaygo.com</span>

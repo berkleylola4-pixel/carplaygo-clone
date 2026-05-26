@@ -4,43 +4,44 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/lib/cart-context";
+import { useSiteConfig } from "@/lib/config";
 import { Shield, Truck, RotateCcw, Star, Plus, Minus, Check, AlertCircle } from "lucide-react";
-
-const productImages = [
-  "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1492144534657-ae2f7a8f6f6d?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1567789884554-0b844b597180?q=80&w=800&auto=format&fit=crop",
-];
 
 const reviews = [
   { name: "Thomas D.", rating: 5, text: "Installation en 2 minutes chrono. Mon autoradio d'origine est transforme !", date: "il y a 2 jours" },
   { name: "Sophie M.", rating: 5, text: "Je n'ai plus besoin de brancher mon cable. La connexion est instantanee.", date: "il y a 1 semaine" },
-  { name: "Kevin L.", rating: 4, text: "Bon produit, livraison rapide. Seul petit bémol : le manuel est en anglais.", date: "il y a 2 semaines" },
+  { name: "Kevin L.", rating: 4, text: "Bon produit, livraison rapide. Seul petit bemol : le manuel est en anglais.", date: "il y a 2 semaines" },
   { name: "Marie P.", rating: 5, text: "Parfait pour ma Clio 4 RS. Fonctionne avec Android Auto impecablement.", date: "il y a 3 semaines" },
   { name: "Alexandre R.", rating: 5, text: "Garantie respectee. Service client reactif. Je recommande a 100%.", date: "il y a 1 mois" },
   { name: "Charlotte B.", rating: 5, text: "Le meilleur achat pour ma voiture. Le design est discret et elegant.", date: "il y a 1 mois" },
 ];
 
 export default function ProductPage() {
+  const config = useSiteConfig();
   const { addItem } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
+  const images = config.productImages.length ? config.productImages : [config.heroImage];
+
   const handleAdd = () => {
     addItem(
       {
         id: "carplaygo-v1",
-        name: "CarplayGO Sans Fil",
-        price: 89.99,
-        image: productImages[0],
+        name: `${config.brandName} Sans Fil`,
+        price: config.productPrice,
+        image: images[0],
       },
       quantity
     );
     setAdded(true);
     setTimeout(() => setAdded(false), 2500);
   };
+
+  const discount = config.productComparePrice > config.productPrice
+    ? Math.round((1 - config.productPrice / config.productComparePrice) * 100)
+    : 0;
 
   return (
     <div className="flex flex-col">
@@ -50,8 +51,8 @@ export default function ProductPage() {
           <div className="space-y-4">
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-background-alt border border-gray-100">
               <Image
-                src={productImages[selectedImage]}
-                alt="CarplayGO Sans Fil"
+                src={images[selectedImage]}
+                alt={`Produit ${selectedImage + 1}`}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -59,7 +60,7 @@ export default function ProductPage() {
               />
             </div>
             <div className="grid grid-cols-4 gap-3">
-              {productImages.map((src, i) => (
+              {images.map((src, i) => (
                 <button
                   key={i}
                   onClick={() => setSelectedImage(i)}
@@ -84,16 +85,20 @@ export default function ProductPage() {
               <span className="text-sm text-foreground-muted">1,240 avis verifies</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">CarplayGO Sans Fil</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">{config.brandName} Sans Fil</h1>
 
             <p className="text-foreground-muted leading-relaxed">
               Transformez votre autoradio d'origine en systeme connecte sans fil. Compatible Apple CarPlay et Android Auto. Installation plug play en moins de 30 secondes.
             </p>
 
             <div className="flex items-baseline gap-3">
-              <span className="text-4xl font-bold">89,99 €</span>
-              <span className="text-lg text-foreground-muted line-through">129,99 €</span>
-              <span className="text-sm font-medium text-danger bg-danger/10 px-2 py-0.5 rounded-md">-31%</span>
+              <span className="text-4xl font-bold">{config.productPrice.toFixed(2).replace(".", ",")} €</span>
+              {config.productComparePrice > config.productPrice && (
+                <>
+                  <span className="text-lg text-foreground-muted line-through">{config.productComparePrice.toFixed(2).replace(".", ",")} €</span>
+                  <span className="text-sm font-medium text-danger bg-danger/10 px-2 py-0.5 rounded-md">-{discount}%</span>
+                </>
+              )}
             </div>
 
             <div className="flex items-center gap-4 flex-wrap">
@@ -184,7 +189,7 @@ export default function ProductPage() {
                 ))}
               </div>
               <span className="font-semibold">4.9/5</span>
-              <span className="text-foreground-muted">basé sur 1,240 avis</span>
+              <span className="text-foreground-muted">base sur 1,240 avis</span>
             </div>
           </div>
 

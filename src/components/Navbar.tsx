@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/lib/cart-context";
+import { useSiteConfig } from "@/lib/config";
 import { ShoppingCart, Menu, X } from "lucide-react";
 
 const links = [
@@ -17,6 +18,7 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const { totalItems } = useCart();
+  const config = useSiteConfig();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -41,7 +43,7 @@ export default function Navbar() {
           <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
             <span className="text-white font-bold text-sm">C</span>
           </div>
-          <span className="font-bold text-xl tracking-tight text-foreground">CarplayGO</span>
+          <span className="font-bold text-xl tracking-tight text-foreground">{config.brandName}</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

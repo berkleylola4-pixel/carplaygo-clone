@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useSiteConfig } from "@/lib/config";
 import { Shield, Wifi, Zap, ChevronRight, Star, Truck, RotateCcw } from "lucide-react";
 
 const fadeInUp = {
@@ -11,6 +12,8 @@ const fadeInUp = {
 };
 
 export default function Home() {
+  const config = useSiteConfig();
+
   return (
     <div className="flex flex-col">
       {/* Hero */}
@@ -102,7 +105,7 @@ export default function Home() {
               <div className="relative aspect-square max-w-lg mx-auto">
                 <div className="absolute inset-0 bg-accent/10 rounded-full" />
                 <Image
-                  src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=800&auto=format&fit=crop"
+                  src={config.heroImage}
                   alt="Adaptateur CarPlay sans fil dans une voiture"
                   fill
                   className="object-contain p-6 drop-shadow-2xl"
@@ -153,7 +156,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Pourquoi choisir CarplayGO ?
+              Pourquoi choisir {config.brandName} ?
             </h2>
             <p className="text-foreground-muted text-lg max-w-2xl mx-auto">
               Un adaptateur concu pour fonctionner parfaitement avec votre vehicule, d'installation simple et totalement invisible.
@@ -207,7 +210,9 @@ export default function Home() {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <span className="inline-block text-accent font-semibold text-sm uppercase tracking-wider">Le produit</span>
+              <span className="inline-block text-accent font-semibold text-sm uppercase tracking-wider">
+                Le produit
+              </span>
               <h2 className="text-3xl sm:text-5xl font-bold tracking-tight">
                 L'adaptateur sans fil
               </h2>
@@ -231,7 +236,7 @@ export default function Home() {
                   href="/product"
                   className="inline-flex items-center gap-2 bg-foreground text-white px-8 py-4 rounded-full font-semibold hover:bg-foreground/90 transition-all shadow-lg shadow-foreground/20"
                 >
-                  Commander maintenant — 89,99 €
+                  Commander maintenant — {config.productPrice.toFixed(2).replace(".", ",")} €
                   <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -245,7 +250,7 @@ export default function Home() {
             >
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-white shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1200&auto=format&fit=crop"
+                  src={config.productImages[0] || config.heroImage}
                   alt="Adaptateur CarPlayGO"
                   fill
                   className="object-cover"
